@@ -1,5 +1,5 @@
 /* 
-   SunnESP - ESP8266 Webserver with a DHT and GY-63(MS5611) sensor as an input
+   FFWeather - ESP8266 Webserver with a DHT and GY-63(MS5611) sensor as an input
    Based on ESP8266Webserver, DHTexample, BlinkWithoutDelay and DHTServer
    Version 1.0   3/08/2016   Iwo Koslowsky
 */
