@@ -1,8 +1,14 @@
 # ffweather
 
-## ffweather-sensor
-ESP8266 Weather Sensor with Temperature, Humidity and Air pressure
+## Voraussetzungen
 
-## ffweather-server
-Raspberry Pi
-Node.js
+#### sensor
+
+* NodeMCU ESP8266 ESP-12E
+ * DHT11
+ * GY-63 (MS5611)
+
+#### server
+
+* Raspberry Pi
+ * Node.js
