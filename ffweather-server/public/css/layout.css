@@ -1,0 +1,104 @@
+html{overflow-y:scroll;} /* Forces a scrollbar when the viewport is larger than the websites content - CSS3 */
+
+body{margin:0; padding:0; font-size:13px; font-family:Helvetica, "Helvetica", Times, serif; color:#919191; background-color:white;}
+
+.clear:after{content:"."; display:block; height:0; clear:both; visibility:hidden; line-height:0;}
+.clear{display:block; clear:both;}
+html[xmlns] .clear{display:block;}
+* html .clear{height:1%;}
+
+a{outline:none; text-decoration:none;}
+
+code{font-weight:normal; font-style:normal; font-family:Helvetica, "Helvetica", Times, serif;}
+
+.fl_left{float:left;}
+.fl_right{float:right;}
+
+img{margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;}
+.imgholder, .imgl, .imgr{padding:4px; border:1px solid #D6D6D6; text-align:center;}
+.imgl{float:left; margin:0 15px 15px 0; clear:left;}
+.imgr{float:right; margin:0 0 15px 15px; clear:right;}
+
+/*----------------------------------------------HTML 5 Overrides-------------------------------------*/
+
+address, article, aside, figcaption, figure, footer, header, nav, section{display:block; margin:0; padding:0;}
+
+q{display:block; padding:0 10px 8px 10px; color:white; background-color:white; font-style:italic; line-height:normal;}
+q:before{content:'“ '; font-size:26px;}
+q:after{content:' „'; font-size:26px; line-height:0;}
+
+/* ----------------------------------------------Wrapper-------------------------------------*/
+
+div.wrapper{display:block; width:100%; margin:0; padding:0; text-align:left;}
+
+.row1, .row1 a{color:#C0BAB6; background-color:white;}
+.row2{color:#979797; background-color:white;}
+.row2 a{color:#FF9900; background-color:white;}
+.row3, .row3 a{color:#919191; background-color:white;}
+
+/*----------------------------------------------Generalise-------------------------------------*/
+
+#header, #container, #footer{display:block; width:1160px; margin:0 auto;}
+
+nav ul{margin:0; padding:0; list-style:none;}
+
+h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:16px; font-weight:bold; font-style:normal; line-height:normal; text-transform:uppercase;}
+
+address{font-style:normal;}
+
+blockquote, q{display:block; padding:8px 10px; color:#979797; background-color:#ECECEC; font-style:italic; line-height:normal;}
+blockquote:before, q:before{content:'“ '; font-size:26px;}
+blockquote:after, q:after{content:' „'; font-size:26px; line-height:0;}
+
+form, fieldset, legend{margin:0; padding:0; border:none;}
+legend{display:none;}
+input, textarea, select{font-size:12px; font-family:Helvetica,"Helvetica",Times,serif;}
+
+.lastbox{margin-right:0;}
+
+/*----------------------------------------------Header-------------------------------------*/
+
+#header{}
+
+#header #hgroup{float:left; margin:0 0 20px 0; padding-top:15px;}
+#header #hgroup h1, #header #hgroup h2{font-weight:normal; text-transform:none;}
+#header #hgroup h1{font-size:36px;}
+#header #hgroup h2{font-size:13px;}
+#header #hgroup img{height:130px; padding-left:45px; padding-top:20px;}
+
+#header nav{display:block; float:left; margin:10px 0 0 0; padding:20px 0; color:white; background-color:white; padding-top:136px;}
+#header nav ul{padding:0 20px; margin-left:160px;}
+#header nav li{display:inline; margin-right:15px; text-transform:uppercase; font-weight:400;}
+#header nav li.last{margin-left:160px;}
+#header nav li a{color:black; background-color:white; font-size:18px; border:10px; border-color:black;}
+#header nav li a:hover{color:rgb(220,40,120) ; background-color:white; font-size:18px;}
+
+#splitter{background-color: gray; height:1px; width:99%; margin-bottom:25px; margin-right:1%;}
+
+/* ------Map----- */
+
+#container #map{}
+#container #map figure{}
+#container #map figure figcaption{display:block; float:left; width:29%; height:500px; color:black; background-color:white; line-height:1.6em;}
+#container #map figure figcaption a{color:black; background-color:#DEDEDE;}
+#container #map figure h2{font-size:20px; font-weight:normal; text-transform:none; padding-left:33px; padding-top:58px; font-weight: 700;}
+#container #map figure h3{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
+#container #map figure h4{font-size:28px; color:rgb(220,40,120); font-weight:normal; text-transform:none; padding-left:33px; padding-top:40px;}
+#container #map figure h5{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px; font-weight: 700; padding-top:48px;}
+#container #map figure h6{font-size:14px; font-weight:normal; text-transform:none; padding-left:33px; padding-right:23px;}
+#container #map figure p{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
+#container #map figure footer{}
+#values{padding-top:18px; float:left; text-align: right; width:39%;}
+#leftrow{padding-top:18px; float:left; text-align: left; width:50%;}
+
+
+#pinkblock{width:97%; border:1px solid; border-color:rgb(220,40,120); height:380px;}
+#stats{width:97%; border-right:2px solid; border-color:rgb(225,229,234); background-color:rgb(225,229,234); margin-top:8px; height:195px; padding-top:15px;}
+#corner{background-color:rgb(220,40,120) ; float:left; width:18px; height:18px;}
+
+/*----------------------------------------------Footer-------------------------------------*/
+
+#splitter2{background-color: gray; height:1px; width:99%; margin-top:25px; margin-right:1%;}
+#footer{padding:15px 0; padding-bottom: 50px;}
+#footer p{margin:0; padding:0; text-align:center;}
+#footer img{text-align: center; height:55px; display: block; margin: 0 auto; margin-top:15px;}
