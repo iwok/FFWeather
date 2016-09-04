@@ -33,7 +33,7 @@ void handle_root() {
   // read sensor
   getSensors();
 
-  server.send(200, "text/plain", "{\"sensor\":{\"temp\":\""+String((long)temp_c)+"\",\"humidity\":\""+String((long)humidity)+"\",\"pressure\":\""+String((long)pressure)+"\"}");
+  server.send(200, "text/plain", "{\"temperature\":\""+String((long)temp_c)+"\",\"humidity\":\""+String((long)humidity)+"\",\"pressure\":\""+String((long)pressure)+"\"}");
   delay(200);
 }
 
@@ -58,6 +58,8 @@ void setup(void)
 
   // Connect to WiFi network
   WiFi.begin(ssid, password);
+  // PLEASE SET YOUR IP !!!
+  WiFi.config(IPAddress(10,34,71,187), IPAddress(10,34,1,1), IPAddress(255,255,0,0));
   Serial.print("\n\r \n\rWorking to connect");
 
   // Wait for connection
@@ -66,7 +68,7 @@ void setup(void)
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("SunnESP Weather Reading Client");
+  Serial.println("Freifunk Weather Sensor");
   Serial.print("Connected to ");
   Serial.println(ssid);
   Serial.print("IP address: ");
