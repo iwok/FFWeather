@@ -49,9 +49,6 @@ var sensordatatmp = {
 };
 var mapSensors = {};
 
-//readSensordataJSON();
-//updateSensorValues();
-
 io.on('connection', function(socket, req, res){
 console.log("client verbunden");
 readSensordataJSON();
@@ -105,6 +102,9 @@ socket.emit('sensorlist', { sensorlist: sensors });
   function updateSensorValues(){
       //  console.log("update sensor values");
       for (var i=0; i<sensors.length; i++) {
+
+
+
           console.log(sensors[i].ipadress);
           console.log(sensors[i].temperature);
           console.log(sensors[i].humidity);
@@ -127,6 +127,10 @@ socket.emit('sensorlist', { sensorlist: sensors });
           if (address.isValid() == true &&
           address.startAddress().parsedAddress[0]==10 &&
           address.startAddress().parsedAddress[1]==34) {
+
+            //sensors[i].temperature = "0";
+            //sensors[i].humidity = "0";
+            //sensors[i].pressure = "0";
 
           /*  session.pingHost (sensors[i].ipadress, function (error, target) {
               console.log (target + " pingin");
@@ -158,6 +162,7 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
                          if (!error){
                            sensordatatmp = JSON.parse(body);
+
                            //console.log("sensordatatmp: "+sensordatatmp.ipadress);
                          }
                          else{
@@ -173,7 +178,16 @@ socket.emit('sensorlist', { sensorlist: sensors });
                        });
 
 
+                       sensors[i].temperature = sensordatatmp.temperature;
+                       sensors[i].humidity = sensordatatmp.humidity;
+                       sensors[i].pressure = sensordatatmp.pressure;
 
+
+                       writeSensordataJSON(sensors);
+
+                       console.log("temperature: "+sensors[i].temperature);
+                       console.log("humidity: "+sensors[i].humidity);
+                       console.log("pressure: "+sensors[i].pressure);
 
 
 
@@ -186,15 +200,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
 
 
-          sensors[i].temperature = sensordatatmp.temperature;
-          sensors[i].humidity = sensordatatmp.humidity;
-          sensors[i].pressure = sensordatatmp.pressure;
-
-          //writeSensordataJSON(sensors);
-
-          console.log("temperature: "+sensors[i].temperature);
-          console.log("humidity: "+sensors[i].humidity);
-          console.log("pressure: "+sensors[i].pressure);
 
 
       }
