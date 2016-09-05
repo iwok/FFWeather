@@ -4,17 +4,16 @@
   <title>Freifunk Wetter</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/layout.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css"/>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <!-- Latest compiled and minified JavaScript -->
-
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
   </head>
 <body>
   <div class="wrapper row1">
@@ -38,103 +37,38 @@
 
 
   <!-- Content -->
+<div class="container">
 
-  <div class="wrapper row2">
-
-    <div id="container" class="clear">
       <div id="splitter"></div>
 
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <section id="map" class="clear">
+          <div id="mapid" style="height: 600px;width: 100%"></div>
+        </div>
 
-
-
-     <!-- Slider -->
-
-      <section id="map" class="clear">
-        <figure>
-
-            <div id="mapid" style="height: 600px;width: 70%"></div>
-
-          <figcaption>
-            <div id="pinkblock">
-              <div id="corner">
-                <p>&nbsp</p>
-              </div>
-
-              <!-- vvv  Ab hier müssten die Werte dann durch Variablen / Echte Werte ersetzt werden. vvv -->
-
-              <!-- Ortsdaten -->
-
-              <h2>Osnabrück, Westerberg</h2>
-              <h3>Station #3  //  User <b>iwok1337</b></h3>
-              <h3>Letzte Aktualisierung 14:47</h3>
-
-              <!-- Messkategorien -->
-
-              <div id="leftrow">
-                <p>Luftfeuchtigkeit:</p>
-                <p>Luftdruck:</p>
-                <p>Lichtstärke:</p>
-                <h5>Temperatur:</h5>
-              </div>
-
-              <!-- Messwerte -->
-
-              <div id="values">
-                <p>41 %</p>
-                <p>111 Pa.</p>
-                <p>168 Ca.</p>
-                <h4><b>28°C</b></h4>
-              </div>
-
-            </div>
-
-            <!-- Statistik -->
-
-            <div id="stats">
-              <h3><b>STATISTIK</b></h3></br>
-              <h6>Zur Zeit sind <b>12</b> Stationen registriert, davon <b>11</b> Aktiv. </br></br>
-                Die gemessene Höchsttemperatur</br> ist <b>29</b> °C. </br></br>
-                Die niedrigste gemessene Temperatur beträgt <b>26</b> °C </br></br>
-              </h6>
-            </div>
-          </figcaption>
-
-
+  </div>
+<br>
+          <div id="splitter"></div>
           <!-- Footer -->
 
-          <div class="wrapper row3">
-            <div id="splitter2"></div>
-            <footer id="footer" class="clear">
+          <footer class="footer text-center">
               <p>Freifunk Wetter ist ein Projekt von Marcel Tebbe und Iwo Alexander Koslowsky </br> in Zusammenarbeit mit Freifunk Herford.</p>
-              <a href="index.html"><img src="images/logo.png" border="0"></a>
+              <a href="index.html"><img class="img-responsive center-block" src="images/logo.png" border="0" width="48" height="55"></a>
             </footer>
-          </div>
 
           <script>
           $(document).ready(function(){
            var socket = io();
 
-           var mymap = L.map('mapid').setView([52.113780, 8.673019], 15);
+           var mymap = L.map('mapid').setView([52.113780, 8.673019], 12);
 
            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
            maxZoom: 18,
-           id: 'YOUR ID',
-           accessToken: 'YOUR ACCESS TOKEN'
+           id: 'iwok.19jh9g16',
+           accessToken: 'pk.eyJ1IjoiaXdvayIsImEiOiJjaXNtMDFnbG4wMDFzM25uNTRzejA5dzQ2In0.ghyLRho7w8Iq4vu6SqjzOg'
            }).addTo(mymap);
-
-
-
-
-
-          $('#submit').click(function() {
-            socket.emit('sensorinput', {ipadress: $('#ipadress').val()}
-          );
-
-          $('#ipadress').val('');
-          return false;
-          });
-
 
           socket.on('sensorlist', function(data){
 
@@ -173,4 +107,4 @@
         });
           </script>
         </body>
-        </html>
+</html>
