@@ -32,8 +32,21 @@ http.listen(3000, function(){
 
 //////////////////////////////////////////////
 
-var sensors = [];
-var sensordatatmp = {};
+var sensors = [
+  {
+    "ipadress": "0",
+    "latitude": "0",
+    "longitude": "0",
+    "temperature": "0",
+    "humidity": "0",
+    "pressure": "0"
+  }
+];
+var sensordatatmp = {
+    "temperature": "0",
+    "humidity": "0",
+    "pressure": "0"
+};
 var mapSensors = {};
 
 //readSensordataJSON();
