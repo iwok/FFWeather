@@ -6,15 +6,13 @@
   <link rel="stylesheet" href="styles/layout.css" type="text/css">
   <script src="/socket.io/socket.io.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script>
 
   $(document).ready(function(){
@@ -38,10 +36,18 @@
   socket.on('sensorlist', function(data){
      for (var i=0; i<data["sensorlist"].length; i++){
        //console.log(JSON.stringify(data["sensorlist"][i]["ipadress"]));
-        $('#sensor').append($('<li>').text(data["sensorlist"][i]["ipadress"]));
-        $('#sensor').append($('<ul>').text("temperature: "+data["sensorlist"][i]["temperature"]));
-        $('#sensor').append($('<ul>').text("humidity: "+data["sensorlist"][i]["humidity"]));
-        $('#sensor').append($('<ul>').text("pressure: "+data["sensorlist"][i]["pressure"]));
+        //$('#sensor').append($('<tr>').text();
+        $('#sensor').append(
+          "<tr><td>" + data["sensorlist"][i]["ipadress"] + "</td>"+
+          "<td>" + data["sensorlist"][i]["temperature"] + "</td>"+
+          "<td>" + data["sensorlist"][i]["humidity"] + "</td>"+
+          "<td>" + data["sensorlist"][i]["pressure"] + "</td></tr>"
+        );
+
+        //$('#sensor').append($('<tr>').text(data["sensorlist"][i]["ipadress"]));
+        //$('#sensor').append($('<td>').text(data["sensorlist"][i]["temperature"]));
+        //$('#sensor').append($('<td>').text(data["sensorlist"][i]["humidity"]));
+        //$('#sensor').append($('<td>').text(data["sensorlist"][i]["pressure"]));
       }
     });
 
@@ -116,22 +122,66 @@
                  </nav>-->
   <div id="splitter"></div>
 
+        <div class="row">
 
-<h3>Sensor eintragen:</h3>
-    <form>
-      IP-Adresse:<br>
-      <input type="text" id="ipadress" name="ipadress" placeholder="10.34.x.x"><br><br>
-      Geo-Position:<br>
-      <input type="text" id="latitude" name="latitude" placeholder="52.xxxxx">
-      <input type="text" id="longitude" name="longitude" placeholder="8.xxxxx"><br>
-      <input type="submit" id="submit" value="Submit">
-    </form>
-<br>
-<hr>
-        <ul id="sensors">
-          <li id="sensor">
-          </li>
-        </ul>
+
+          <div class="col-xs-12 col-sm-6 col-md-8">
+            <h4>Sensorliste</h4>
+
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <!-- Table -->
+              <table class="table">
+                <thead>
+                 <tr>
+                   <th>IP</th>
+                   <th>Temp</th>
+                   <th>Hum</th>
+                   <th>Pre</th>
+                 </tr>
+               </thead>
+               <tbody id="sensor">
+
+               </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-4">
+
+            <h4>Sensor eintragen</h4>
+              <!--<form>
+                IP-Adresse:<br>
+                <input type="text" id="ipadress" name="ipadress" placeholder="10.34.x.x"><br><br>
+                Geo-Position:<br>
+                <input type="text" id="latitude" name="latitude" placeholder="52.xxxxx">
+                <input type="text" id="longitude" name="longitude" placeholder="8.xxxxx"><br>
+                <input type="submit" id="submit" value="Submit">
+              </form>-->
+
+              <form>
+                <div class="form-group">
+                  <label for="ip-address">IP-Adresse:</label>
+                  <input type="text" class="form-control" id="ipadress" name="ipadress" placeholder="10.34.x.x">
+                </div>
+                <div class="form-group">
+                  <label for="ip-address">Lat:</label>
+                  <input type="text" class="form-control" id="latitude" name="latitude" placeholder="52.xxxxx">
+                  <label for="ip-address">Lng:</label>
+                  <input type="text" class="form-control" id="longitude" name="longitude" placeholder="8.xxxxx">
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox"> Alles korrekt!</label>
+                </div>
+                <button type="submit" class="btn btn-default" id="submit">Eintragen</button>
+              </form>
+              <br>
+          </div>
+
+        </div>
+
+
+
 
 
           <div id="splitter"></div>
@@ -142,5 +192,5 @@
               <a href="index.html"><img class="img-responsive center-block" src="images/logo.png" border="0" width="48" height="55"></a>
             </footer>
      </div>
-        </body>
-        </html>
+   </body>
+</html>
