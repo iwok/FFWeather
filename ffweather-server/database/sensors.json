@@ -1,0 +1,18 @@
+[
+  {
+    "ipadress": "10.34.71.187",
+    "latitude": "52.200295",
+    "longitude": "8.629729",
+    "temperature": "23",
+    "humidity": "44",
+    "pressure": "50247"
+  },
+  {
+    "ipadress": "10.34.71.18",
+    "latitude": "",
+    "longitude": "",
+    "temperature": "23",
+    "humidity": "44",
+    "pressure": "50247"
+  }
+]
