@@ -98,17 +98,17 @@ socket.emit('sensorlist', { sensorlist: sensors });
           console.log(sensors[i].pressure);
 
           // Default options
-          var options = {
+        /*  var options = {
               networkProtocol: ping.NetworkProtocol.IPv4,
               packetSize: 64,
               retries: 5,
               sessionId: (process.pid % 65535),
               timeout: 3000,
               ttl: 128
-          };
+          };*/
 
           var address = new Address4(sensors[i].ipadress);
-          var session = ping.createSession (options);
+          //var session = ping.createSession (options);
           var sensorOK = true;
 
           if (address.isValid() == true &&
