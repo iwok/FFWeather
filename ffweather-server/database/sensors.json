@@ -1,18 +1,26 @@
 [
   {
-    "ipadress": "10.34.71.187",
-    "latitude": "52.200295",
-    "longitude": "8.629729",
-    "temperature": "23",
-    "humidity": "44",
-    "pressure": "50247"
+    "ipaddress": "10.34.71.187",
+    "latitude": "52.200335",
+    "longitude": "8.629611",
+    "temperature": "20",
+    "humidity": "20",
+    "pressure": "20"
   },
   {
-    "ipadress": "10.34.71.18",
-    "latitude": "",
-    "longitude": "",
-    "temperature": "23",
-    "humidity": "44",
-    "pressure": "50247"
+    "ipaddress": "10.34.71.18",
+    "latitude": "52.220335",
+    "longitude": "8.649611",
+    "temperature": "24",
+    "humidity": "59",
+    "pressure": "50772"
+  },
+  {
+    "ipaddress": "10.34.71.187",
+    "latitude": "52.220335",
+    "longitude": "8.629611",
+    "temperature": "24",
+    "humidity": "59",
+    "pressure": "50772"
   }
 ]
