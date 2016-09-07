@@ -4,6 +4,8 @@ var path    = require("path");
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Address4 = require('ip-address').Address4;
+var request = require('then-request');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname + '/public')));
@@ -20,37 +22,30 @@ http.listen(3000, function(){
 
 //////////////////////////////////////////////
 
-var sensors = [
-  {
-    "ipadress": "0",
-    "latitude": "0",
-    "longitude": "0",
-    "temperature": "0",
-    "humidity": "0",
-    "pressure": "0"
-  }
-];
-var sensordatatmp = {
-    "temperature": "0",
-    "humidity": "0",
-    "pressure": "0"
-};
-var mapSensors = {};
+var sensors = [];
+var sensordatatmp = [];
+
+readSensordataJSON();
+
 
 io.on('connection', function(socket, req, res){
 console.log("client verbunden");
-readSensordataJSON();
-updateSensorValues();
+requestSensorData();
+setTimeout(function () {
+ //do something
+ updateSensorValues();
+}, 1000);
 
 socket.emit('sensorlist', { sensorlist: sensors });
 
     socket.on('sensorinput', function(data, req){
+      requestSensorData();
       //console.log(data);
           // User input sensor data
            // Prepare output in JSON format
            response =
              {
-               "ipadress":data.ipadress,
+               "ipaddress":data.ipaddress,
                "latitude":data.latitude,
                "longitude":data.longitude,
                "temperature":"0",
@@ -60,12 +55,12 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
            sensors.push(response);
            //console.log("response: "+response);
-           writeSensordataJSON(sensors);
+           //writeSensordataJSON(sensors);
            //console.log("sensors: "+sensors);
            //res.end(JSON.stringify(response));
            // User Input sensordata END
 
-        socket.emit('sensoradd', { sensorlist: sensors });
+        socket.emit('sensoradd', { sensoradd: sensors });
     });
 
     socket.on('disconnect', function () {
@@ -84,76 +79,88 @@ socket.emit('sensorlist', { sensorlist: sensors });
       //  console.log("update sensor values");
       for (var i=0; i<sensors.length; i++) {
 
+        var address = new Address4(sensors[i].ipaddress);
+
+        if (address.isValid() == true &&
+        address.startAddress().parsedAddress[0]==10 &&
+        address.startAddress().parsedAddress[1]==34) {
 
 
 
-          if (address.isValid() == true &&
-          address.startAddress().parsedAddress[0]==10 &&
-          address.startAddress().parsedAddress[1]==34) {
+      console.log("Sensordaten aktualisieren von "+sensors[i].ipaddress);
+      console.log("sensordatatmp: "+sensordatatmp);
+            sensors[i].temperature = sensordatatmp[i].temperature;
+            sensors[i].humidity = sensordatatmp[i].humidity;
+            sensors[i].pressure = sensordatatmp[i].pressure;
 
-            //sensors[i].temperature = "0";
-            //sensors[i].humidity = "0";
-            //sensors[i].pressure = "0";
-
-          /*  session.pingHost (sensors[i].ipadress, function (error, target) {
-              console.log (target + " pingin");
-              if (error)
-                if (error instanceof ping.RequestTimedOutError)
-                console.log (target + ": Not alive");
-              else
-                console.log (target + ": " + error.toString ());
-              else
-                console.log (target + ": Alive");
-              });*/
-
-              //console.log (sensors[i].ipadress + " pingin");
-
-
-
-
-
-                       request("http://"+sensors[i].ipadress+"", function (error, response, body) {
-
-                         if (!error){
-                           sensordatatmp = JSON.parse(body);
-
-                           //console.log("sensordatatmp: "+sensordatatmp.ipadress);
-                         }
-                         else{
-                           console.log (response + ": " + error.toString ());
-                           sensorOK = false;
-                           console.log("Sensors: "+sensors);
-                           sensors.splice(i,1);
-
-                           writeSensordataJSON(sensors);
-                           console.log("Sensors: "+sensors);
-                           console.log("Sensor Adresse down - ENTFERNT !!!");
-                         }
-                       });
-
-
-                       sensors[i].temperature = sensordatatmp.temperature;
-                       sensors[i].humidity = sensordatatmp.humidity;
-                       sensors[i].pressure = sensordatatmp.pressure;
-
-
-                       writeSensordataJSON(sensors);
-
-                       console.log("temperature: "+sensors[i].temperature);
-                       console.log("humidity: "+sensors[i].humidity);
-                       console.log("pressure: "+sensors[i].pressure);
-
-
-
-          }
-          else {
-            sensors.splice(i,1);
             writeSensordataJSON(sensors);
-            console.log("Sensor Adresse invalid - ENTFERNT !!!");
-          }
+
+
+          //console.log("temperature: "+sensors[i].temperature);
+          //console.log("humidity: "+sensors[i].humidity);
+          //console.log("pressure: "+sensors[i].pressure);
 
 
 
+    }else {
+      sensors.splice(i,1);
+      writeSensordataJSON(sensors);
+      console.log("Sensor addresse invalide - ENTFERNT !!!");
+    }
+
+  }
+  sensordatatmp = [];
+}
+
+
+  //
+  function requestSensorData(){
+    for (var i=0; i<sensors.length; i++) {
+
+      var address = new Address4(sensors[i].ipaddress);
+
+      if (address.isValid() == true &&
+      address.startAddress().parsedAddress[0]==10 &&
+      address.startAddress().parsedAddress[1]==34) {
+
+        console.log("Sensordaten LADEN "+sensors[i].ipaddress);
+
+        request('GET', 'http://'+sensors[i].ipaddress+'').done(function (res) {
+        //console.log(res.body.toString());
+
+          sensordatatmp.push(JSON.parse(res.body));
+            //sensordatatmp.push(JSON.parse(res.body.toString()));
+          //writeSensordataJSON(sensors);
+            //console.log(sensordatatmp);
+
+        });
+      }
+      else {
+        sensors.splice(i,1);
+        writeSensordataJSON(sensors);
+        console.log("Sensor addresse invalide - ENTFERNT !!!");
+      }
+    }
+  /*   request('GET', 'http://'+ipaddress+'').done(function (error, res) {
+
+       console.log(res.body.toString());
+
+       if (!error){
+         //sensordatatmp = JSON.parse(body);
+         //sensordatatmp.push(JSON.parse(response));
+        // console.log("sensordatatmp request: "+JSON.stringify(sensordatatmp));
+       }
+       else{
+         //console.log (response + ": " + error.toString ());
+         //sensors.splice(i,1);
+
+         //writeSensordataJSON(sensors);
+         //console.log("Sensors: "+JSON.stringify(sensors));
+         //console.log("Sensor Adresse down - ENTFERNT !!!");
+       }
+
+     });*/
+}
 
 
 
