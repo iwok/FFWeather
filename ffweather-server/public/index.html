@@ -123,10 +123,9 @@
 
              for (var i=0; i<data["sensorlist"].length; i++){
 
-               console.log(parseFloat(data["sensorlist"][i]["latitude"]));
-               console.log(data["sensorlist"].length);
-               console.log("test2");
-
+               //console.log(parseFloat(data["sensorlist"][i]["latitude"]));
+               //console.log(data["sensorlist"].length);
+               
                var marker = L.marker([data["sensorlist"][i]["latitude"],data["sensorlist"][i]["longitude"]])
                .bindPopup(
                  "<b>Temperatur: </b>"+data["sensorlist"][i]["temperature"]+" °C<br>"+
@@ -135,8 +134,8 @@
                ).addTo(mymap);
 
 
-               //console.log(JSON.stringify(data["sensorlist"][i]["ipadress"]));
-                //$('#sensor').append($('<li>').text(data["sensorlist"][i]["ipadress"]));
+               //console.log(JSON.stringify(data["sensorlist"][i]["ipaddress"]));
+                //$('#sensor').append($('<li>').text(data["sensorlist"][i]["ipaddress"]));
                 //$('#sensor').append($('<ul>').text("temperature: "+data["sensorlist"][i]["temperature"]));
                 //$('#sensor').append($('<ul>').text("humidity: "+data["sensorlist"][i]["humidity"]));
                 //$('#sensor').append($('<ul>').text("pressure: "+data["sensorlist"][i]["pressure"]));
@@ -151,7 +150,7 @@
 
               mymap.on('click', function(e) {
 
-                console.log(e.getContent());
+                //console.log(e.getContent());
                 alert(e.latlng); // e is an event object (MouseEvent in this case)
               });
 
