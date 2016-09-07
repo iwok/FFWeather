@@ -4,18 +4,6 @@ var path    = require("path");
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Address4 = require('ip-address').Address4;
-var request = require('request');
-//var ping = require ("net-ping");
-//var cheerio = require('cheerio'),
-//    $ = cheerio.load('html');
-//var fs = require('fs');
-// var server = require('http').createServer(function(req, response){
-//  fs.readFile(__dirname+'/index.html', function(err, data){
-//    response.writeHead(200, {'Content-Type':'text/html'});
-//    response.write(data);
-//    response.end();
-//  });
-//});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname + '/public')));
@@ -57,7 +45,6 @@ updateSensorValues();
 socket.emit('sensorlist', { sensorlist: sensors });
 
     socket.on('sensorinput', function(data, req){
-
       //console.log(data);
           // User input sensor data
            // Prepare output in JSON format
@@ -83,6 +70,7 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
     socket.on('disconnect', function () {
         io.emit('user disconnected');
+
         writeSensordataJSON(sensors);
       });
 
@@ -90,13 +78,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 });
 
 
-  // Write Sensorvalues to View
-  /*function displaySensorValues(ipadress){
-  for (var i=0; i<sensors.length; i++)
-      for (var sensor in sensors[i]) {
-
-      }
-}*/
 
   // Check Sensors and Update their Data
   function updateSensorValues(){
@@ -105,24 +86,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
 
 
-          console.log(sensors[i].ipadress);
-          console.log(sensors[i].temperature);
-          console.log(sensors[i].humidity);
-          console.log(sensors[i].pressure);
-
-          // Default options
-        /*  var options = {
-              networkProtocol: ping.NetworkProtocol.IPv4,
-              packetSize: 64,
-              retries: 5,
-              sessionId: (process.pid % 65535),
-              timeout: 3000,
-              ttl: 128
-          };*/
-
-          var address = new Address4(sensors[i].ipadress);
-          //var session = ping.createSession (options);
-          var sensorOK = true;
 
           if (address.isValid() == true &&
           address.startAddress().parsedAddress[0]==10 &&
@@ -146,17 +109,8 @@ socket.emit('sensorlist', { sensorlist: sensors });
               //console.log (sensors[i].ipadress + " pingin");
 
 
-            /*      if (error){
-                    sensorOK = false;
-                    sensors.splice(i,1)
-                    writeSensordataJSON(sensors);
-                    console.log("Sensor ist offline - ENTFERNT !!!");
-                    console.log (target + ": " + error.toString ());
-                    }*/
 
 
-                      //console.log (target + ": Alive");
-                      console.log("sensordaten LADEN");
 
                        request("http://"+sensors[i].ipadress+"", function (error, response, body) {
 
@@ -202,8 +156,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
 
 
-      }
-    }
 
   // Read Sensor Database from JSON file
   function readSensordataJSON(){
