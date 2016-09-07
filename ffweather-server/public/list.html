@@ -20,13 +20,13 @@
 
   $('#submit').click(function() {
     socket.emit('sensorinput', {
-      ipadress: $('#ipadress').val(),
+      ipaddress: $('#ipaddress').val(),
       latitude: $('#latitude').val(),
       longitude: $('#longitude').val()
   }
   );
 
-  $('#ipadress').val('');
+  $('#ipaddress').val('');
   $('#latitude').val('');
   $('#longitude').val('');
   return false;
@@ -35,16 +35,16 @@
 
   socket.on('sensorlist', function(data){
      for (var i=0; i<data["sensorlist"].length; i++){
-       //console.log(JSON.stringify(data["sensorlist"][i]["ipadress"]));
+       //console.log(JSON.stringify(data["sensorlist"][i]["ipaddress"]));
         //$('#sensor').append($('<tr>').text();
         $('#sensor').append(
-          "<tr><td>" + data["sensorlist"][i]["ipadress"] + "</td>"+
+          "<tr><td>" + data["sensorlist"][i]["ipaddress"] + "</td>"+
           "<td>" + data["sensorlist"][i]["temperature"] + "</td>"+
           "<td>" + data["sensorlist"][i]["humidity"] + "</td>"+
           "<td>" + data["sensorlist"][i]["pressure"] + "</td></tr>"
         );
 
-        //$('#sensor').append($('<tr>').text(data["sensorlist"][i]["ipadress"]));
+        //$('#sensor').append($('<tr>').text(data["sensorlist"][i]["ipaddress"]));
         //$('#sensor').append($('<td>').text(data["sensorlist"][i]["temperature"]));
         //$('#sensor').append($('<td>').text(data["sensorlist"][i]["humidity"]));
         //$('#sensor').append($('<td>').text(data["sensorlist"][i]["pressure"]));
@@ -52,8 +52,14 @@
     });
 
     socket.on('sensoradd', function(data){
-
-      });
+      var i = data["sensoradd"].length-1;
+        $('#sensor').append(
+           "<tr><td>" + data["sensoradd"][i]["ipaddress"] + "</td>"+
+           "<td>" + data["sensoradd"][i]["temperature"] + "</td>"+
+           "<td>" + data["sensoradd"][i]["humidity"] + "</td>"+
+           "<td>" + data["sensoradd"][i]["pressure"] + "</td></tr>"
+         );
+    });
 
 });
   </script>
@@ -152,7 +158,7 @@
             <h4>Sensor eintragen</h4>
               <!--<form>
                 IP-Adresse:<br>
-                <input type="text" id="ipadress" name="ipadress" placeholder="10.34.x.x"><br><br>
+                <input type="text" id="ipaddress" name="ipaddress" placeholder="10.34.x.x"><br><br>
                 Geo-Position:<br>
                 <input type="text" id="latitude" name="latitude" placeholder="52.xxxxx">
                 <input type="text" id="longitude" name="longitude" placeholder="8.xxxxx"><br>
@@ -162,7 +168,7 @@
               <form>
                 <div class="form-group">
                   <label for="ip-address">IP-Adresse:</label>
-                  <input type="text" class="form-control" id="ipadress" name="ipadress" placeholder="10.34.x.x">
+                  <input type="text" class="form-control" id="ipaddress" name="ipaddress" placeholder="10.34.x.x">
                 </div>
                 <div class="form-group">
                   <label for="ip-address">Lat:</label>
