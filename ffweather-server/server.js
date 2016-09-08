@@ -85,22 +85,22 @@ socket.emit('sensorlist', { sensorlist: sensors });
         address.startAddress().parsedAddress[0]==10 &&
         address.startAddress().parsedAddress[1]==34) {
 
+        for (var j=0; j<sensordatatmp.length; j++) {
 
-
-      console.log("Sensordaten aktualisieren von "+sensors[i].ipaddress);
-      console.log("sensordatatmp: "+sensordatatmp);
-            sensors[i].temperature = sensordatatmp[i].temperature;
-            sensors[i].humidity = sensordatatmp[i].humidity;
-            sensors[i].pressure = sensordatatmp[i].pressure;
+          if (sensors[i].ipaddress == sensordatatmp[j].ipaddress) {
+            console.log("Sensordaten aktualisieren von "+sensors[i].ipaddress);
+            console.log("sensordatatmp: "+sensordatatmp);
+            sensors[i].temperature = sensordatatmp[j].temperature;
+            sensors[i].humidity = sensordatatmp[j].humidity;
+            sensors[i].pressure = sensordatatmp[j].pressure;
+          }
+        }
 
             writeSensordataJSON(sensors);
-
 
           //console.log("temperature: "+sensors[i].temperature);
           //console.log("humidity: "+sensors[i].humidity);
           //console.log("pressure: "+sensors[i].pressure);
-
-
 
     }else {
       sensors.splice(i,1);
