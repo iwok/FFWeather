@@ -125,7 +125,7 @@
 
                //console.log(parseFloat(data["sensorlist"][i]["latitude"]));
                //console.log(data["sensorlist"].length);
-               
+
                var marker = L.marker([data["sensorlist"][i]["latitude"],data["sensorlist"][i]["longitude"]])
                .bindPopup(
                  "<b>Temperatur: </b>"+data["sensorlist"][i]["temperature"]+" °C<br>"+
@@ -148,15 +148,15 @@
 
                 });
 
+              /*
               mymap.on('click', function(e) {
 
                 //console.log(e.getContent());
                 alert(e.latlng); // e is an event object (MouseEvent in this case)
               });
+              */
 
             });
-
-
 
             socket.on('sensoradd', function(data){
 
