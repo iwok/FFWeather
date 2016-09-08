@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Address4 = require('ip-address').Address4;
 var request = require('then-request');
-
+var jsonfile = require('jsonfile');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname + '/public')));
@@ -127,12 +127,10 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
         request('GET', 'http://'+sensors[i].ipaddress+'').done(function (res) {
         //console.log(res.body.toString());
-
           sensordatatmp.push(JSON.parse(res.body));
             //sensordatatmp.push(JSON.parse(res.body.toString()));
           //writeSensordataJSON(sensors);
             //console.log(sensordatatmp);
-
         });
       }
       else {
@@ -166,8 +164,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
   // Read Sensor Database from JSON file
   function readSensordataJSON(){
-
-    var jsonfile = require('jsonfile')
     var file = './database/sensors.json'
 
     sensors = jsonfile.readFileSync(file)
@@ -175,9 +171,6 @@ socket.emit('sensorlist', { sensorlist: sensors });
 
   // Write Sensor Database to JSON file
   function writeSensordataJSON(sensordata){
-
-    var jsonfile = require('jsonfile')
-
     var file = './database/sensors.json'
     var obj = sensordata
 
