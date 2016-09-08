@@ -26,6 +26,10 @@ String webString = "";   // String to display
 unsigned long previousMillis = 0;        // will store last temp was read
 const long interval = 2000;              // interval at which to read sensor
 
+String ipaddress = "10.34.71.187";
+String lat = "52.200335";
+String lng = "8.629611";
+
 MS5611 ms5611;
 double referencePressure;
 
@@ -33,7 +37,7 @@ void handle_root() {
   // read sensor
   getSensors();
 
-  server.send(200, "text/plain", "{\"temperature\":\""+String((long)temp_c)+"\",\"humidity\":\""+String((long)humidity)+"\",\"pressure\":\""+String((long)pressure)+"\"}");
+  server.send(200, "text/plain", "{\"ipaddress\":\""+ipaddress+"\",\"latitude\":\""+lat+"\",\"longitude\":\""+lng+"\",\"temperature\":\""+String((long)temp_c)+"\",\"humidity\":\""+String((long)humidity)+"\",\"pressure\":\""+String((long)pressure)+"\"}");
   delay(200);
 }
 
