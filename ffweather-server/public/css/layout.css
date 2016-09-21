@@ -1,6 +1,6 @@
 html{overflow-y:scroll;} /* Forces a scrollbar when the viewport is larger than the websites content - CSS3 */
 
-body{margin:0; padding:0; font-size:13px; font-family:Helvetica, "Helvetica", Times, serif; color:#919191; background-color:white;}
+body{margin:0; padding:0; font-size:13px; font-family:Helvetica, "Helvetica", Times, serif; color:#505050; background-color:white;}
 
 .clear:after{content:"."; display:block; height:0; clear:both; visibility:hidden; line-height:0;}
 .clear{display:block; clear:both;}
@@ -24,8 +24,8 @@ img{margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;
 address, article, aside, figcaption, figure, footer, header, nav, section{display:block; margin:0; padding:0;}
 
 q{display:block; padding:0 10px 8px 10px; color:white; background-color:white; font-style:italic; line-height:normal;}
-q:before{content:'“ '; font-size:26px;}
-q:after{content:' „'; font-size:26px; line-height:0;}
+q:before{content:'ï¿½ '; font-size:26px;}
+q:after{content:' ï¿½'; font-size:26px; line-height:0;}
 
 /* ----------------------------------------------Wrapper-------------------------------------*/
 
@@ -42,13 +42,13 @@ div.wrapper{display:block; width:100%; margin:0; padding:0; text-align:left;}
 
 nav ul{margin:0; padding:0; list-style:none;}
 
-h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:16px; font-weight:bold; font-style:normal; line-height:normal; text-transform:uppercase;}
+h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:16px; font-weight:bold; font-style:normal; line-height:normal}
 
 address{font-style:normal;}
 
 blockquote, q{display:block; padding:8px 10px; color:#979797; background-color:#ECECEC; font-style:italic; line-height:normal;}
-blockquote:before, q:before{content:'“ '; font-size:26px;}
-blockquote:after, q:after{content:' „'; font-size:26px; line-height:0;}
+blockquote:before, q:before{content:'ï¿½ '; font-size:26px;}
+blockquote:after, q:after{content:' ï¿½'; font-size:26px; line-height:0;}
 
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
@@ -77,24 +77,26 @@ input, textarea, select{font-size:12px; font-family:Helvetica,"Helvetica",Times,
 
 /* ------Map----- */
 
-#container #map{}
-#container #map figure{}
-#container #map figure figcaption{display:block; float:left; width:29%; height:500px; color:black; background-color:white; line-height:1.6em;}
-#container #map figure figcaption a{color:black; background-color:#DEDEDE;}
-#container #map figure h2{font-size:20px; font-weight:normal; text-transform:none; padding-left:33px; padding-top:58px; font-weight: 700;}
-#container #map figure h3{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
-#container #map figure h4{font-size:28px; color:rgb(220,40,120); font-weight:normal; text-transform:none; padding-left:33px; padding-top:40px;}
-#container #map figure h5{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px; font-weight: 700; padding-top:48px;}
-#container #map figure h6{font-size:14px; font-weight:normal; text-transform:none; padding-left:33px; padding-right:23px;}
-#container #map figure p{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
-#container #map figure footer{}
+.container #pinkblock {}
+.container #pinkblock figcaption{display:block; float:left; width:29%; height:500px; color:black; background-color:white; line-height:1.6em;}
+.container #pinkblock figcaption a{color:black; background-color:#DEDEDE;}
+.container #pinkblock h2{font-size:20px; font-weight:normal; text-transform:none; padding-left:33px; padding-top:33px; font-weight: 700;}
+.container #pinkblock h3{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
+.container #pinkblock h4{font-size:28px; color:rgb(220,40,120); font-weight:normal; text-transform:none; padding-left:33px; padding-top:40px;}
+.container #pinkblock h5{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px; font-weight: 700; padding-top:48px;}
+.container #pinkblock h6{font-size:14px; font-weight:normal; text-transform:none; padding-left:33px; padding-right:23px;}
+.container #pinkblock p{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
+.container #pinkblock b{font-size:16px; font-weight:bold; text-transform:none; padding-left:33px;}
+.container #pinkblock footer{}
 #values{padding-top:18px; float:left; text-align: right; width:39%;}
-#leftrow{padding-top:18px; float:left; text-align: left; width:50%;}
+#leftrow{padding-top:18px; float:left; text-align: left; width:100%;}
 
 
-#pinkblock{width:97%; border:1px solid; border-color:rgb(220,40,120); height:380px;}
-#stats{width:97%; border-right:2px solid; border-color:rgb(225,229,234); background-color:rgb(225,229,234); margin-top:8px; height:195px; padding-top:15px;}
-#corner{background-color:rgb(220,40,120) ; float:left; width:18px; height:18px;}
+.container #pinkblock{width:97%; border:1px solid; border-color:rgb(220,40,120); height:380px;}
+.container #stats{width:97%; border-right:2px solid; border-color:rgb(225,229,234); background-color:rgb(225,229,234); margin-top:8px; height:195px; padding-top:15px;}
+.container #stats h3{font-size:16px; font-weight:normal; text-transform:none; padding-left:33px;}
+.container #stats h6{font-size:14px; font-weight:normal; text-transform:none; padding-left:33px; padding-right:23px;}
+.container #corner{background-color:rgb(220,40,120) ; float:left; width:18px; height:18px;}
 
 /*----------------------------------------------Footer-------------------------------------*/
 
