@@ -3,8 +3,8 @@
 <head>
   <title>Freifunk Wetter</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="css/layout.css">
   <script src="/socket.io/socket.io.js"></script>
+
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css"/>
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/layout.css">
   </head>
 <body>
   <div class="wrapper row1">
@@ -26,7 +27,7 @@
         <ul>
           <li><a href="info.html">Information</a></li>
           <li><a href="list.html">Liste</a></li>
-          <li><a href="mitmachen.html">Mitmachen</a></li>
+          <li><a href="guide.html">Mitmachen</a></li>
 
           <li class="last"><a href="contact.html">Kontakt</a></li>
           <li><a href="impressum.html">Impressum</a></li>
@@ -54,16 +55,17 @@
 
               <!-- Ortsdaten -->
 
-              <h2>Herford, Kirchlengern</h2>
-              <h3>Station #1  //  User <b>iwok</b></h3>
-              <h3>Letzte Aktualisierung 14:47</h3>
+
+
+
 
               <!-- Messkategorien -->
 
               <div id="leftrow">
+                <h2>Station //</h2><br>
                 <p>Luftfeuchtigkeit:</p>
                 <p>Luftdruck:</p>
-                <b>Temperatur:</b>
+                <p>Temperatur:</p>
               </div>
 
               <!-- Messwerte -->
@@ -78,9 +80,6 @@
 
             <div id="stats">
               <h3><b>STATISTIK</b></h3></br>
-              <h6>Zur Zeit sind <b>12</b> Stationen registriert, davon <b>11</b> Aktiv. </br></br>
-                Die gemessene Höchsttemperatur</br> ist <b>29</b> °C. </br></br>
-                Die niedrigste gemessene Temperatur beträgt <b>26</b> °C </br></br>
               <h6>Zur Zeit sind <b id="stationen"></b> Stationen registriert.</br></br>
                 Die gemessene Höchsttemperatur</br> ist <b id="maxTemp"></b> °C. </br></br>
                 Die niedrigste gemessene Temperatur beträgt <b id="minTemp"></b> °C </br></br>
@@ -121,8 +120,6 @@
 
           socket.on('sensorlist', function(data){
 
-            //marker = L.marker([52.27262, 8.04842]).bindPopup(data["sensorlist"][0]["temperature"]+"°C").addTo(mymap);
-            //marker = L.marker([52.27361, 8.04859]).bindPopup(data["sensorlist"][1]["temperature"]+"°C").addTo(mymap);
             $('#stationen').append(data["sensorlist"].length);
 
             var maxTemp = 0;
@@ -153,9 +150,10 @@
 
                var marker = L.marker([data["sensorlist"][i]["latitude"],data["sensorlist"][i]["longitude"]])
                .bindPopup(
-                 "<b>Temperatur: </b>"+data["sensorlist"][i]["temperature"]+" °C<br>"+
-                 "<b>Luftfeuchtigkeit: </b>"+data["sensorlist"][i]["humidity"]+" %<br>"+
-                 "<b>Luftdruck: </b>"+data["sensorlist"][i]["pressure"]+" hPa"
+                 "<h2>Station // "+data["sensorlist"][i]["locationName"]+"</h2><br>"+
+                 "<p>Luftfeuchtigkeit: <b>"+data["sensorlist"][i]["humidity"]+" %</p></b>"+
+                 "<p>Luftdruck: <b>"+data["sensorlist"][i]["pressure"]+" hPa</p></b>"+
+                 "<p>Temperatur: <b>"+data["sensorlist"][i]["temperature"]+" °C</b>"
                ).addTo(mymap);
 
 
@@ -164,23 +162,13 @@
                 //$('#sensor').append($('<ul>').text("temperature: "+data["sensorlist"][i]["temperature"]));
                 //$('#sensor').append($('<ul>').text("humidity: "+data["sensorlist"][i]["humidity"]));
                 //$('#sensor').append($('<ul>').text("pressure: "+data["sensorlist"][i]["pressure"]));
+                mymap.on('popupopen', function (e) {
+                      //alert(e.popup._source.temperature);
+                      //console.log(e.popup._content);
+                      $('#leftrow').html(e.popup._content);
+
+                  });
               }
-
-              mymap.on('popupopen', function (e) {
-                    //alert(e.popup._source.temperature);
-                    //console.log(e.popup._content);
-                    $('#leftrow').html(e.popup._content);
-
-                });
-
-              /*
-              mymap.on('click', function(e) {
-
-                //console.log(e.getContent());
-                alert(e.latlng); // e is an event object (MouseEvent in this case)
-              });
-              */
-
             });
 
             socket.on('sensoradd', function(data){
