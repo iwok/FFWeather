@@ -3,7 +3,6 @@
 <head>
   <title>Freifunk Wetter</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="styles/layout.css" type="text/css">
   <script src="/socket.io/socket.io.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
@@ -13,6 +12,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/layout.css" type="text/css">
   <script>
 
   $(document).ready(function(){
@@ -21,12 +21,14 @@
   $('#submit').click(function() {
     socket.emit('sensorinput', {
       ipaddress: $('#ipaddress').val(),
+      locationName: $('#locationName').val(),
       latitude: $('#latitude').val(),
       longitude: $('#longitude').val()
   }
   );
 
   $('#ipaddress').val('');
+  $('locationName').val('');
   $('#latitude').val('');
   $('#longitude').val('');
   return false;
@@ -39,6 +41,7 @@
         //$('#sensor').append($('<tr>').text();
         $('#sensor').append(
           "<tr><td>" + data["sensorlist"][i]["ipaddress"] + "</td>"+
+          "<td>" + data["sensorlist"][i]["locationName"] + "</td>"+
           "<td>" + data["sensorlist"][i]["temperature"] + "</td>"+
           "<td>" + data["sensorlist"][i]["humidity"] + "</td>"+
           "<td>" + data["sensorlist"][i]["pressure"] + "</td></tr>"
@@ -55,6 +58,7 @@
       var i = data["sensoradd"].length-1;
         $('#sensor').append(
            "<tr><td>" + data["sensoradd"][i]["ipaddress"] + "</td>"+
+           "<td>" + data["sensoradd"][i]["locationName"] + "</td>"+
            "<td>" + data["sensoradd"][i]["temperature"] + "</td>"+
            "<td>" + data["sensoradd"][i]["humidity"] + "</td>"+
            "<td>" + data["sensoradd"][i]["pressure"] + "</td></tr>"
@@ -141,6 +145,7 @@
                 <thead>
                  <tr>
                    <th>IP</th>
+                   <th>Location</th>
                    <th>Temp</th>
                    <th>Hum</th>
                    <th>Pre</th>
@@ -169,6 +174,8 @@
                 <div class="form-group">
                   <label for="ip-address">IP-Adresse:</label>
                   <input type="text" class="form-control" id="ipaddress" name="ipaddress" placeholder="10.34.x.x">
+                  <label for="locationName">Standort:</label>
+                  <input type="text" class="form-control" id="locationName" name="locationName" placeholder="wo steht die Station ?">
                 </div>
                 <div class="form-group">
                   <label for="ip-address">Lat:</label>
