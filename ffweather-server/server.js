@@ -46,6 +46,7 @@ socket.emit('sensorlist', { sensorlist: sensors });
            response =
              {
                "ipaddress":data.ipaddress,
+               "locationName": data.locationName,
                "latitude":data.latitude,
                "longitude":data.longitude,
                "temperature":"0",
