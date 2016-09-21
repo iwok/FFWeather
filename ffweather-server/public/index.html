@@ -81,6 +81,9 @@
               <h6>Zur Zeit sind <b>12</b> Stationen registriert, davon <b>11</b> Aktiv. </br></br>
                 Die gemessene Höchsttemperatur</br> ist <b>29</b> °C. </br></br>
                 Die niedrigste gemessene Temperatur beträgt <b>26</b> °C </br></br>
+              <h6>Zur Zeit sind <b id="stationen"></b> Stationen registriert.</br></br>
+                Die gemessene Höchsttemperatur</br> ist <b id="maxTemp"></b> °C. </br></br>
+                Die niedrigste gemessene Temperatur beträgt <b id="minTemp"></b> °C </br></br>
               </h6>
             </div>
           </figcaption>
@@ -120,9 +123,31 @@
 
             //marker = L.marker([52.27262, 8.04842]).bindPopup(data["sensorlist"][0]["temperature"]+"°C").addTo(mymap);
             //marker = L.marker([52.27361, 8.04859]).bindPopup(data["sensorlist"][1]["temperature"]+"°C").addTo(mymap);
+            $('#stationen').append(data["sensorlist"].length);
+
+            var maxTemp = 0;
+            var minTemp = 0;
 
              for (var i=0; i<data["sensorlist"].length; i++){
 
+               if (maxTemp <= parseFloat(data["sensorlist"][i]["temperature"])) {
+                 maxTemp = parseFloat(data["sensorlist"][i]["temperature"]);
+               }
+               $('#maxTemp').html(maxTemp);
+
+               if (minTemp >= parseFloat(data["sensorlist"][i]["temperature"])) {
+                 minTemp = parseFloat(data["sensorlist"][i]["temperature"]);
+               }
+               $('#minTemp').html(minTemp);
+
+
+               /*
+               if (data["sensorlist"][i]["temperature"] < data["sensorlist"][i+1]["temperature"]) {
+                 $('#minTemp').html(data["sensorlist"][i]["temperature"]);
+               }
+               */
+
+              // $('#locationName').append(data["sensorlist"][i]["locationName"]);
                //console.log(parseFloat(data["sensorlist"][i]["latitude"]));
                //console.log(data["sensorlist"].length);
 
